@@ -74,11 +74,10 @@ def start():
                 print(check_account(person))
             elif choice == 2:
                 try:
-                    money = float(input('Введите сумму, которую хотите снять:'))
+                    money = int(input('Введите сумму, которую хотите снять:'))
                     print(withdraw_money(person, money))
                 except ValueError:
-                    print('\nВы не ввели сумму!\n')
-                    start()
+                    print('\nВы ввели некорректную сумму!(Пример: 100, 500, 1000)\n')
             elif choice == 3:
                 break
             else:
