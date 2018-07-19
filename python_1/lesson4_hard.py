@@ -40,11 +40,16 @@ def withdraw_money(person, money):
 
 
 def process_user_choice(choice, person):
-    if choice == '1':
+    if choice == 1:
         print(check_account(person))
-    elif choice == '2':
-        count = float(input('Сумма к снятию:'))
-        print(withdraw_money(person, count))
+    elif choice == 2:
+        try:
+            count = int(input('Сумма к снятию:'))
+            print(withdraw_money(person, count))
+        except ValueError:
+            print('\nВы ввели некорректную сумму!(Пример: 100, 500, 1000)\n')
+    else:
+         print('\nВыберите существующий пункт.\n')
 
 
 def start():
@@ -70,18 +75,8 @@ def start():
                                '3. Выход\n'
                                '---------------------\n'
                                'Ваш выбор:'))
-            if choice == 1:
-                print(check_account(person))
-            elif choice == 2:
-                try:
-                    money = int(input('Введите сумму, которую хотите снять:'))
-                    print(withdraw_money(person, money))
-                except ValueError:
-                    print('\nВы ввели некорректную сумму!(Пример: 100, 500, 1000)\n')
-            elif choice == 3:
+            if choice == 3:
                 break
-            else:
-                print('\nВыберите существующий пункт.\n')
             process_user_choice(choice, person)
     else:
         print('\nНомер карты или пин код введены не верно!\n')
