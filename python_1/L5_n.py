@@ -14,5 +14,55 @@
 # оформленные в виде соответствующих функций,
 # и импортированные в данный файл из easy.py
 
-import python_1.lesson5_easy as util
 
+import L5_e as util
+import sys
+import os
+
+
+def set_directory():
+    try:
+        path = input('Введите полный путь к папке:')
+        os.chdir(path)
+        print('Вы успешно перешли в указанную директорию!')
+    except FileNotFoundError:
+        print('Вы ввели текущий или несуществующий путь!')
+    except OSError:
+        print('Вы ввели несуществующий путь!')
+
+
+def create_dir():
+    name = input('Введите имя создаваемой папки:')
+    try:
+        util.make_dir(name)
+        print('Папка {} успешно создана!'.format(name))
+    except PermissionError:
+        print('Вы не ввели имя!')
+
+
+
+def remove_dir():
+    name = input('Введите имя удаляемой папки:')
+    if name in os.listdir(os.getcwd()):
+        util.remove_dir(name)
+        print('Папка {} успешно удалена!'.format(name))
+    else:
+        print('Вы ввели несуществующее имя!')
+
+
+actions = {
+        '1': set_directory,
+        '2': util.current_directory_files,
+        '3': remove_dir,
+        '4': create_dir
+    }
+
+try:
+    request = sys.argv[1]
+    if actions.get(request):
+        actions[request]()
+    else:
+        print("Задан неверный ключ")
+except IndexError:
+    print('После имени файла выберите:\n 1 - Выбрать текущую папку, \n 2 - Отобразить файлы и папку текущей директории,'
+          ' \n 3 - Удалить файл по названию, \n 4 - Создать новый файл')

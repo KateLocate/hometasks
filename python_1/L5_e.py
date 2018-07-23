@@ -7,25 +7,46 @@ import os
 import shutil
 
 
-def duplicate_dir(n=1):
-    for i in range(n):
-        dir_path = os.path.join(os.getcwd(), 'dir_'+str(n - i))
+def make_dir(name, n=1):
+    if n > 1:
+        for i in range(n):
+            dir_path = os.path.join(os.getcwd(), name+str(n - i))
+            try:
+                os.mkdir(dir_path)
+            except FileExistsError:
+                print('Директория с таким именем уже есть в данной папке!')
+            except NameError:
+                print('Укажите имя файла в кавычках!')
+    else:
+        dir_path = os.path.join(os.getcwd(), name)
         try:
             os.mkdir(dir_path)
         except FileExistsError:
             print('Директория с таким именем уже есть в данной папке!')
+        except NameError:
+            print('Укажите имя файла в кавычках!')
 
 
-def remove_duplicated_dir(n=1):
-    for i in range(n):
+def remove_dir(name, n=1):
+    if n > 1:
+        for i in range(n):
+            try:
+                os.removedirs(str(os.getcwd())+'\\'+name+str(n - i))
+            except FileNotFoundError:
+                print('Вы пытаетесь удалить несуществующую директорию!')
+            except NameError:
+                print('Укажите имя файла в кавычках!')
+    else:
         try:
-            os.removedirs(str(os.getcwd())+'\\'+'dir_'+str(n - i))
+            os.removedirs(str(os.getcwd())+'\\'+name)
         except FileNotFoundError:
             print('Вы пытаетесь удалить несуществующую директорию!')
+        except NameError:
+            print('Укажите имя файла в кавычках!')
 
 
-duplicate_dir(9)
-remove_duplicated_dir(9)
+make_dir('dir_', 9)
+remove_dir('dir_', 9)
 
 # Задача-2:
 # Напишите скрипт, отображающий папки текущей директории.
