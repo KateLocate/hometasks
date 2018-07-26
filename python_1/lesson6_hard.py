@@ -24,16 +24,13 @@ class Toy:
 class ToyAnimal(Toy):
 
     def __init__(self, name, color, toy_type='animal'):
-        super().__init__(name, color)
-        self._toy_type = toy_type
+        super().__init__(name, color, toy_type)
 
 
 class CartoonToy(Toy):
 
     def __init__(self, name, color, toy_type='cartoon character'):
-        super().__init__(name, color)
-        self._toy_type = toy_type
-
+        super().__init__(name, color, toy_type)
 
 class ToyFactory:
 
@@ -55,5 +52,5 @@ class ToyFactory:
             return toy
 
 
-toy_factory = ToyFactory
-print(toy_factory.creation('animal', 'bear', 'red'))
+toy_factory = ToyFactory()
+bear = toy_factory.creation('animal', 'bear', 'red')
